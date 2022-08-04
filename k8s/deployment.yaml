@@ -37,7 +37,7 @@ spec:
   - port: 5432
     targetPort: 5432
 ---
-# Continuar o deploy da app
+# Deployment da app Kube News
 apiVersion: apps/v1
 kind: Deployment
 metadata:
