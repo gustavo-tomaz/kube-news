@@ -36,7 +36,7 @@ jobs:
         with:
           file: ./src/Dockerfile    # O arquivo Docker file dentro do repositório
           context: ./src            # O Contexto de qual diretório vai ser enviado para o Dockerdaemnon
-          push: tru                 # Vai fazer o push da imagem
+          push: true                 # Vai fazer o push da imagem
           tags: |                   # As tags com as versões da imagem
             gustavotomaz/kube-news:latest
             gustavotomaz/kube-news:${{github.run_number}}
