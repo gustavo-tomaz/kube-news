@@ -77,4 +77,4 @@ spec:
   - port: 80
     targetPort: 8080    # Redirecionar para o target port da app
     nodePort: 30000   # Porta 30000 especificada no k3d através do port bind no load balancer
-  type: NodePort
+  type: LoadBalancer
