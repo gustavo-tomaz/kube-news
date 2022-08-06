@@ -41,3 +41,24 @@ jobs:
             gustavotomaz/kube-news:latest
             gustavotomaz/kube-news:${{github.run_number}}
          # O run_number utilizado acima éuma variável do github que vai criar um número diferente (+1) pra toda vez que for executado.
+         
+  CD:   
+    runs-on: ubuntu-latest    # Estamos trabalhando com o kubectl.Faz sentido deixar o Linux.
+    needs: [CI]               # Especifica que esse job de CD depende do CI
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Kubernetes Set Context
+        uses: Azure/k8s-set-context@v3.0
+        with:
+          # Acceptable values: kubeconfig or service-account or service-principal
+          method: kubeconfig
+          # Contents of kubeconfig file
+          kubeconfig: ${{secrets.K8S_CONFIG}}   # Criaremos uma secret para não deixar o arquivo kubeconfig exposto no código
+      
+      - name: Deploy to Kubernetes cluster
+        uses: Azure/k8s-deploy@v4.3
+        with:
+          images: gustavotomaz/kube-news:${{github.run_number}}
+          manifest:
+            k82/deployment.yaml
