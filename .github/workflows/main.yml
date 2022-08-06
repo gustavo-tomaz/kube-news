@@ -61,4 +61,4 @@ jobs:
         with:
           images: gustavotomaz/kube-news:${{github.run_number}}
           manifest:
-            k82/deployment.yaml
+            k8s/deployment.yaml
