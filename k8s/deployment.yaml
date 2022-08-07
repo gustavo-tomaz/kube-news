@@ -43,7 +43,7 @@ kind: Deployment
 metadata:
   name: kubenews
 spec:
-  replicas: 4  
+  replicas: 3  
   selector:
     matchLabels:
       app: kubenews
@@ -51,6 +51,10 @@ spec:
     metadata:
       labels:
         app: kubenews
+      annotations:        # Como eu quero que o Prometheus colete as métricas do meu Pod da app, a annotation tem que ficar dentro da estrutura do Pod da app.
+        prometheus.io/scrape: "true"  # Pra dizer que eu quero que faça o scrape desse Pod
+        prometheus.io/port: "8080"    # especificar a porta do endpoint, que no caso é 8080
+        prometheus.io/path: "/metrics"      # especificar o path de onde está o endpoint de coleta de metricas. Por padrão ele já pega o /metrics.
     spec:     #Especificação dos containers no Pod
       containers:
       - name: kubenews
